@@ -224,12 +224,18 @@ PGSQL::PGSQL(String conninfo, bool async)
         ConnStatusType st = PQstatus(m_conn);
         if (m_conn && st == CONNECTION_OK) {
             // Load up the fixed information
-            m_db = PQdb(m_conn);
-            m_user = PQuser(m_conn);
-            m_pass = PQpass(m_conn);
-            m_host = PQhost(m_conn);
-            m_port = PQport(m_conn);
-            m_options = PQoptions(m_conn);
+            const char * db = PQdb(m_conn);
+            if (db) m_db = db;
+            const char * user = PQuser(m_conn);
+            if (user) m_user = user;
+            const char * pass = PQpass(m_conn);
+            if (pass) m_pass = pass;
+            const char * host = PQhost(m_conn);
+            if (host) m_host = host;
+            const char * port = PQport(m_conn);
+            if (port) m_port = port;
+            const char * options = PQoptions(m_conn);
+            if (options) m_options = options;
         } else if (m_conn) {
             raise_warning("pg_connect(): Connection failed: %s", PQerrorMessage(m_conn));
             PQfinish(m_conn);
