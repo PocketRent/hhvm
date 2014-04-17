@@ -622,6 +622,10 @@ void HhbcTranslator::emitAddNewElemC() {
   push(gen(AddNewElem, arr, val));
 }
 
+void HhbcTranslator::emitCol(int type, int dataId) {
+  emitInterpOne(Type::Obj, 0);
+}
+
 void HhbcTranslator::emitNewCol(int type, int size) {
   push(gen(NewCol, cns(type), cns(size)));
 }

@@ -3744,6 +3744,42 @@ OPTBLD_INLINE void ExecutionContext::iopAddNewElemV(IOP_ARGS) {
   m_stack.popV();
 }
 
+OPTBLD_INLINE void ExecutionContext::iopCol(IOP_ARGS) {
+  NEXT();
+  DECODE_IVA(cType);
+  DECODE(Id, id);
+
+  assert(cType == Collection::ImmVectorType ||
+         cType == Collection::ImmMapType    ||
+         cType == Collection::ImmSetType);
+
+  ArrayData* a = m_fp->m_func->unit()->lookupArrayId(id);
+
+  switch (cType) {
+    case Collection::ImmVectorType: {
+        auto obj = NEWOBJ(c_ImmVector)();
+        obj->t___construct(a);
+        m_stack.pushObject(obj);
+      }
+      break;
+    case Collection::ImmMapType: {
+        auto obj = NEWOBJ(c_ImmMap)();
+        obj->t___construct(a);
+        m_stack.pushObject(obj);
+      }
+      break;
+    case Collection::ImmSetType: {
+        auto obj = NEWOBJ(c_ImmSet)();
+        obj->t___construct(a);
+        m_stack.pushObject(obj);
+      }
+      break;
+    default:
+      not_reached();
+  }
+
+}
+
 OPTBLD_INLINE void ExecutionContext::iopNewCol(IOP_ARGS) {
   NEXT();
   DECODE_IVA(cType);

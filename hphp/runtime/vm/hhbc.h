@@ -507,6 +507,7 @@ enum class BareThisOp : uint8_t {
   O(AddElemV,        NA,               THREE(VV,CV,CV), ONE(CV),    NF) \
   O(AddNewElemC,     NA,               TWO(CV,CV),      ONE(CV),    NF) \
   O(AddNewElemV,     NA,               TWO(VV,CV),      ONE(CV),    NF) \
+  O(Col,             TWO(IVA,AA),      NOV,             ONE(CV),    NF) \
   O(NewCol,          TWO(IVA,IVA),     NOV,             ONE(CV),    NF) \
   O(ColAddElemC,     NA,               THREE(CV,CV,CV), ONE(CV),    NF) \
   O(ColAddNewElemC,  NA,               TWO(CV,CV),      ONE(CV),    NF) \

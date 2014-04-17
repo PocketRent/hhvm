@@ -152,6 +152,7 @@ struct HhbcTranslator {
   void emitArrayAdd();
   void emitAddElemC();
   void emitAddNewElemC();
+  void emitCol(int type, int );
   void emitNewCol(int type, int numElems);
   void emitColAddElemC();
   void emitColAddNewElemC();

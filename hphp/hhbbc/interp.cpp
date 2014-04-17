@@ -261,6 +261,12 @@ void in(ISS& env, const bc::AddNewElemV&) {
   push(env, TArr);
 }
 
+void in(ISS& env, const bc::Col& op) {
+  nothrow(env);
+  auto const name = collectionTypeToString(op.arg1);
+  push(env, objExact(env.index.builtin_class(name)));
+}
+
 void in(ISS& env, const bc::NewCol& op) {
   auto const name = collectionTypeToString(op.arg1);
   push(env, objExact(env.index.builtin_class(name)));

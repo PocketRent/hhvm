@@ -3840,8 +3840,22 @@ bool EmitterVisitor::visitImpl(ConstructPtr node) {
             throw IncludeTimeFatalException(b,
               "Cannot use collection initialization for non-collection class");
           }
+
+
           bool kvPairs = (cType == Collection::MapType ||
                           cType == Collection::ImmMapType);
+
+          if ((cType == Collection::ImmVectorType ||
+               cType == Collection::ImmMapType    ||
+               cType == Collection::ImmSetType) && el->isScalar()) {
+
+            Variant v;
+
+            if (el->getScalarValue(v) && v.isArray()) {
+                e.Col(cType, v.getArrayData());
+                return true;
+            }
+          }
           e.NewCol(cType, nElms);
           if (kvPairs) {
             for (int i = 0; i < nElms; i++) {
